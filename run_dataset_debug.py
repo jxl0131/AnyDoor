@@ -20,19 +20,19 @@ from omegaconf import OmegaConf
 # Datasets
 DConf = OmegaConf.load('./configs/datasets.yaml')
 dataset1 = YoutubeVOSDataset(**DConf.Train.YoutubeVOS)  
-dataset2 = SaliencyDataset(**DConf.Train.Saliency) 
-dataset3 = VIPSegDataset(**DConf.Train.VIPSeg) 
-dataset4 = YoutubeVISDataset(**DConf.Train.YoutubeVIS) 
-dataset5 = MVImageNetDataset(**DConf.Train.MVImageNet)
-dataset6 = SAMDataset(**DConf.Train.SAM)
-dataset7 = UVODataset(**DConf.Train.UVO.train)
-dataset8 = VitonHDDataset(**DConf.Train.VitonHD)
-dataset9 = UVOValDataset(**DConf.Train.UVO.val)
-dataset10 = MoseDataset(**DConf.Train.Mose)
-dataset11 = FashionTryonDataset(**DConf.Train.FashionTryon)
-dataset12 = LvisDataset(**DConf.Train.Lvis)
+# dataset2 = SaliencyDataset(**DConf.Train.Saliency) 
+# dataset3 = VIPSegDataset(**DConf.Train.VIPSeg) 
+# dataset4 = YoutubeVISDataset(**DConf.Train.YoutubeVIS) 
+# dataset5 = MVImageNetDataset(**DConf.Train.MVImageNet)
+# dataset6 = SAMDataset(**DConf.Train.SAM)
+# dataset7 = UVODataset(**DConf.Train.UVO.train)
+# dataset8 = VitonHDDataset(**DConf.Train.VitonHD)
+# dataset9 = UVOValDataset(**DConf.Train.UVO.val)
+# dataset10 = MoseDataset(**DConf.Train.Mose)
+# dataset11 = FashionTryonDataset(**DConf.Train.FashionTryon)
+# dataset12 = LvisDataset(**DConf.Train.Lvis)
 
-dataset = dataset5
+dataset = dataset1
 
 
 def vis_sample(item):

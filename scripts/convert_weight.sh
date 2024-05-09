@@ -1,1 +1,1 @@
-python tool_add_control_sd21.py path/v2-1_512-ema-pruned.ckpt path/control_sd21_ini.ckpt
+python tool_add_control_sd21.py /data/jixinlong/jixinlong/datasets/train/AnyDoor/v2-1_768-ema-pruned.ckpt /data/jixinlong/jixinlong/datasets/train/AnyDoor/control_sd21_ini.ckpt

@@ -80,6 +80,7 @@ model:
 
     cond_stage_config:
       target: ldm.modules.encoders.modules.FrozenDinoV2Encoder
-      weight: path/dinov2_vitg14_pretrain.pth
+      # weight: path/dinov2_vitg14_pretrain.pth
+      weight: /data/jixinlong/jixinlong/datasets/train/AnyDoor/dinov2_vitg14_pretrain.pth
     
 

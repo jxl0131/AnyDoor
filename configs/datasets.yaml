@@ -1,8 +1,8 @@
 Train:
   YoutubeVOS:
-    image_dir: path/YTBVOS/train/JPEGImages/
-    anno: path/YTBVOS/train/Annotations
-    meta: path/YTBVOS/train/meta.json
+    image_dir: /data/intern/jixinlong/datasets/YTBVOS/train/JPEGImages/
+    anno: /data/intern/jixinlong/datasets/YTBVOS/train/Annotations
+    meta: /data/intern/jixinlong/datasets/YTBVOS/train/meta.json
 
   YoutubeVIS:
     image_dir: path/youtubevis/train/JPEGImages/

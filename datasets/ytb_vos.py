@@ -29,6 +29,7 @@ class YoutubeVOSDataset(BaseDataset):
 
     def __len__(self):
         return 40000
+        # return 400
 
     def check_region_size(self, image, yyxx, ratio, mode = 'max'):
         pass_flag = True

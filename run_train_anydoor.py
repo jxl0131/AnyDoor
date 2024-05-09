@@ -24,7 +24,7 @@ if save_memory:
     enable_sliced_attention()
 
 # Configs
-resume_path = 'path/to/weight'
+resume_path = '/data/intern/jixinlong/checkpoints/control_sd21_ini.ckpt'
 batch_size = 16
 logger_freq = 1000
 learning_rate = 1e-5
@@ -43,25 +43,28 @@ model.only_mid_control = only_mid_control
 # Datasets
 DConf = OmegaConf.load('./configs/datasets.yaml')
 dataset1 = YoutubeVOSDataset(**DConf.Train.YoutubeVOS)  
-dataset2 =  SaliencyDataset(**DConf.Train.Saliency) 
-dataset3 = VIPSegDataset(**DConf.Train.VIPSeg) 
-dataset4 = YoutubeVISDataset(**DConf.Train.YoutubeVIS) 
-dataset5 = MVImageNetDataset(**DConf.Train.MVImageNet)
-dataset6 = SAMDataset(**DConf.Train.SAM)
-dataset7 = UVODataset(**DConf.Train.UVO.train)
-dataset8 = VitonHDDataset(**DConf.Train.VitonHD)
-dataset9 = UVOValDataset(**DConf.Train.UVO.val)
-dataset10 = MoseDataset(**DConf.Train.Mose)
-dataset11 = FashionTryonDataset(**DConf.Train.FashionTryon)
-dataset12 = LvisDataset(**DConf.Train.Lvis)
 
-image_data = [dataset2, dataset6, dataset12]
-video_data = [dataset1, dataset3, dataset4, dataset7, dataset9, dataset10 ]
-tryon_data = [dataset8, dataset11]
-threed_data = [dataset5]
+# dataset2 =  SaliencyDataset(**DConf.Train.Saliency) 
+# dataset3 = VIPSegDataset(**DConf.Train.VIPSeg) 
+# dataset4 = YoutubeVISDataset(**DConf.Train.YoutubeVIS) 
+# dataset5 = MVImageNetDataset(**DConf.Train.MVImageNet)
+# dataset6 = SAMDataset(**DConf.Train.SAM)
+# dataset7 = UVODataset(**DConf.Train.UVO.train)
+# dataset8 = VitonHDDataset(**DConf.Train.VitonHD)
+# dataset9 = UVOValDataset(**DConf.Train.UVO.val)
+# dataset10 = MoseDataset(**DConf.Train.Mose)
+# dataset11 = FashionTryonDataset(**DConf.Train.FashionTryon)
+# dataset12 = LvisDataset(**DConf.Train.Lvis)
 
-# The ratio of each dataset is adjusted by setting the __len__ 
-dataset = ConcatDataset( image_data + video_data + tryon_data +  threed_data + video_data + tryon_data +  threed_data  )
+# image_data = [dataset2, dataset6, dataset12]
+# video_data = [dataset1, dataset3, dataset4, dataset7, dataset9, dataset10 ]
+# tryon_data = [dataset8, dataset11]
+# threed_data = [dataset5]
+
+# # The ratio of each dataset is adjusted by setting the __len__ 
+# dataset = ConcatDataset( image_data + video_data + tryon_data +  threed_data + video_data + tryon_data +  threed_data  )
+
+dataset = ConcatDataset(dataset1+dataset1)
 dataloader = DataLoader(dataset, num_workers=8, batch_size=batch_size, shuffle=True)
 logger = ImageLogger(batch_frequency=logger_freq)
 trainer = pl.Trainer(gpus=n_gpus, strategy="ddp", precision=16, accelerator="gpu", callbacks=[logger], progress_bar_refresh_rate=1, accumulate_grad_batches=accumulate_grad_batches)
