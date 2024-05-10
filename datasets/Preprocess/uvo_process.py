@@ -5,8 +5,8 @@ from pycocotools import mask as mask_utils
 import numpy as np
 from tqdm import tqdm
 
-json_path = 'path/UVO/UVO_sparse_train_video_with_interpolation.json'
-output_path = "path/UVO/UVO_sparse_train_video_with_interpolation_reorg.json"
+json_path = '/data/jixinlong/jixinlong/datasets/UVO/UVO_sparse_train_video_with_interpolation.json'
+output_path = "/data/jixinlong/jixinlong/datasets/UVO/UVO_sparse_train_video_with_interpolation_reorg.json"
 
 with open(json_path, 'r') as fcc_file:
     data = json.load(fcc_file)

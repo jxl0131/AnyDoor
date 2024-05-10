@@ -11,9 +11,9 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "env": {
-                "CUDA_VISIBLE_DEVICES": "7,9" // 指定您想要的设备号，比如0
-            }
+            // "env": {
+            //     "CUDA_VISIBLE_DEVICES": "7,9" // 指定您想要的设备号，比如0
+            // }
         }
     ]
 }

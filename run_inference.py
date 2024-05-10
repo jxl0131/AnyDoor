@@ -1,3 +1,10 @@
+queue = [[1,10000]]#bz 32
+import gpusHelper,os
+CUDA_VISIBLE_DEVICES = gpusHelper.get_CUDA_VISIBLE_DEVICES(queue)
+os.environ["CUDA_VISIBLE_DEVICES"] = CUDA_VISIBLE_DEVICES
+# os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:32"
+# 这个推理代码对显存需求很大，如何让它对显存的需求大幅减少?
+
 import cv2
 import einops
 import numpy as np
@@ -15,8 +22,7 @@ from omegaconf import OmegaConf
 from PIL import Image
 
 
-save_memory = True
-# save_memory = False
+save_memory = False
 
 disable_verbosity()
 if save_memory:
