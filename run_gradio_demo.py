@@ -5,6 +5,11 @@ import torch
 import random
 import gradio as gr
 import os
+queue = [[1,20000]]#bz 32
+import gpusHelper,os
+CUDA_VISIBLE_DEVICES = gpusHelper.get_CUDA_VISIBLE_DEVICES(queue)
+os.environ["CUDA_VISIBLE_DEVICES"] = CUDA_VISIBLE_DEVICES
+
 import albumentations as A
 from PIL import Image
 import torchvision.transforms as T
