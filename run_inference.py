@@ -187,7 +187,7 @@ def inference_single_image(ref_image, ref_mask, tar_image, tar_mask, guidance_sc
     guess_mode = False
     H,W = 512,512
 
-    cond = {"c_concat": [control], "c_crossattn": [model.get_learned_conditioning( clip_input )]}
+    cond = {"c_concat": [control], "c_crossattn": [model.get_learned_conditioning( clip_input )]}#get_learned_conditioning会编码输入的图像
     un_cond = {"c_concat": None if guess_mode else [control], "c_crossattn": [model.get_learned_conditioning([torch.zeros((1,3,224,224))] * num_samples)]}
     shape = (4, H // 8, W // 8)
 

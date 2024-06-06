@@ -1,3 +1,9 @@
+queue = [[2,20000]]#bz 32
+import gpusHelper,os
+CUDA_VISIBLE_DEVICES = gpusHelper.get_CUDA_VISIBLE_DEVICES(queue)
+os.environ["CUDA_VISIBLE_DEVICES"] = CUDA_VISIBLE_DEVICES
+# os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:32"
+# 这个推理代码对显存需求很大，如何让它对显存的需求大幅减少?
 import pytorch_lightning as pl
 from torch.utils.data import DataLoader
 from datasets.ytb_vos import YoutubeVOSDataset
@@ -24,8 +30,8 @@ if save_memory:
     enable_sliced_attention()
 
 # Configs
-resume_path = '/data/intern/jixinlong/checkpoints/control_sd21_ini.ckpt'
-batch_size = 16
+resume_path = '/data/jixinlong/jixinlong/datasets/train/AnyDoor/control_sd21_ini.ckpt'
+batch_size = 4
 logger_freq = 1000
 learning_rate = 1e-5
 sd_locked = False
@@ -64,10 +70,10 @@ dataset1 = YoutubeVOSDataset(**DConf.Train.YoutubeVOS)
 # # The ratio of each dataset is adjusted by setting the __len__ 
 # dataset = ConcatDataset( image_data + video_data + tryon_data +  threed_data + video_data + tryon_data +  threed_data  )
 
-dataset = ConcatDataset(dataset1+dataset1)
-dataloader = DataLoader(dataset, num_workers=8, batch_size=batch_size, shuffle=True)
+# dataset = ConcatDataset(dataset1+dataset1)
+dataloader = DataLoader(dataset1, num_workers=20, batch_size=batch_size, shuffle=True)
 logger = ImageLogger(batch_frequency=logger_freq)
 trainer = pl.Trainer(gpus=n_gpus, strategy="ddp", precision=16, accelerator="gpu", callbacks=[logger], progress_bar_refresh_rate=1, accumulate_grad_batches=accumulate_grad_batches)
-
+# trainer = pl.Trainer(gpus=1, strategy="ddp_sharded", precision=16, accelerator="gpu", callbacks=[logger], progress_bar_refresh_rate=1)
 # Train!
 trainer.fit(model, dataloader)

@@ -5,9 +5,9 @@ Train:
     meta: /data/jixinlong/jixinlong/datasets/YTBVOS/train/meta.json
 
   YoutubeVIS:
-    image_dir: path/youtubevis/train/JPEGImages/
-    anno: path/youtubevis/train/Annotations/
-    meta: path/youtubevis/train/meta.json
+    image_dir: /data/jixinlong/jixinlong/datasets/youtubevis/train/JPEGImages/
+    anno: /data/jixinlong/jixinlong/datasets/youtubevis/train/Annotations/
+    meta: /data/jixinlong/jixinlong/datasets/youtubevis/train/meta.json
 
   VIPSeg:
     image_dir: path/VIPSeg/VIPSeg_720P/images/
