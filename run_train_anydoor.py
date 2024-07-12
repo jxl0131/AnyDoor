@@ -1,4 +1,4 @@
-queue = [[2,20000]]#bz 32
+queue = [[1,20000]]#bz 32
 import gpusHelper,os
 CUDA_VISIBLE_DEVICES = gpusHelper.get_CUDA_VISIBLE_DEVICES(queue)
 os.environ["CUDA_VISIBLE_DEVICES"] = CUDA_VISIBLE_DEVICES
@@ -31,12 +31,14 @@ if save_memory:
 
 # Configs
 resume_path = '/data/jixinlong/jixinlong/datasets/train/AnyDoor/control_sd21_ini.ckpt'
-batch_size = 4
+batch_size = 1
 logger_freq = 1000
 learning_rate = 1e-5
-sd_locked = False
+# sd_locked = False
 only_mid_control = False
-n_gpus = 2
+sd_locked = True
+
+n_gpus = 1
 accumulate_grad_batches=1
 
 # First use cpu to load models. Pytorch Lightning will automatically move it to GPUs.
@@ -71,9 +73,11 @@ dataset1 = YoutubeVOSDataset(**DConf.Train.YoutubeVOS)
 # dataset = ConcatDataset( image_data + video_data + tryon_data +  threed_data + video_data + tryon_data +  threed_data  )
 
 # dataset = ConcatDataset(dataset1+dataset1)
-dataloader = DataLoader(dataset1, num_workers=20, batch_size=batch_size, shuffle=True)
+dataloader = DataLoader(dataset1, num_workers=8, batch_size=batch_size, shuffle=True)
 logger = ImageLogger(batch_frequency=logger_freq)
-trainer = pl.Trainer(gpus=n_gpus, strategy="ddp", precision=16, accelerator="gpu", callbacks=[logger], progress_bar_refresh_rate=1, accumulate_grad_batches=accumulate_grad_batches)
-# trainer = pl.Trainer(gpus=1, strategy="ddp_sharded", precision=16, accelerator="gpu", callbacks=[logger], progress_bar_refresh_rate=1)
+# trainer = pl.Trainer(gpus=n_gpus, strategy="ddp", precision=16, accelerator="gpu", callbacks=[logger], progress_bar_refresh_rate=1, accumulate_grad_batches=accumulate_grad_batches)
+
+# save memory
+trainer = pl.Trainer(gpus=1, strategy="ddp_sharded", precision=16, accelerator="gpu", callbacks=[logger], progress_bar_refresh_rate=1)
 # Train!
 trainer.fit(model, dataloader)
